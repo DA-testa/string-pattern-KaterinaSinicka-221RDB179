@@ -25,21 +25,22 @@ def print_occurrences(output):
     # this function should control output, it doesn't need any return
     print(' '.join(map(str, output)))
 
+def hash_func(s, prime, x):
+    h = 0
+    for c in reversed(s):
+        h = (h * x + ord(c)) % prime
+    return h
+
 def get_occurrences(pattern, text):
-    # this function should find the occurances using Rabin Karp alghoritm
+    # this function should find the occurrences using Rabin Karp algorithm
+    prime = 10**9 + 7
+    x = 263
     p_len = len(pattern)
     t_len = len(text)
-    p_hash = sum(ord(pattern[i]) * pow(256, p_len - i - 1) for i in range(p_len))
-    t_hash = sum(ord(text[i]) * pow(256, p_len - i - 1) for i in range(p_len))
-
-    for i in range(t_len - p_len + 1):
-        if p_hash == t_hash:
-            if text[i:i+p_len] == pattern:
-                occurances.append(i)
-        if i < t_len - p_len:
-            t_hash = (t_hash - ord(text[i]) * pow(256, p_len - 1)) * 256 + ord(text[i+p_len])
-
-    return occurances
+    p_hash = hash_func(pattern, prime, x)
+    t_hashes = [hash_func(text[i:i+p_len], prime, x) for i in range(t_len-p_len+1)]
+    occurrences = [i for i in range(t_len-p_len+1) if t_hashes[i] == p_hash]
+    return occurrences
 
 # this part launches the functions
 if __name__ == '__main__':
