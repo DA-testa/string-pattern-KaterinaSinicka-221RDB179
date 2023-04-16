@@ -3,18 +3,18 @@
 def read_input():
     # this function needs to aquire input both from keyboard and file
     # as before, use capital i (input from keyboard) and capital f (input from file) to choose which input type will follow
-    text = input()
-    if "I" in text:
+    choice = input()
+    if "I" in choice:
         pattern = input().rstrip()
         text = input().rstrip()
         return pattern, text
-    if "F" in text:
-        fl = "./tests/" + "06"
-        with open(fl, "r") as file:
-            pattern = file.readline().rstrip()
-            text = file.readline().rstrip()
-            return pattern, text
-    return (input().rstrip(), input().rstrip())
+    else:
+        folder = "tests/06"
+        with open(folder, "r") as files:
+            pattern = files.readline()
+            text = files.readline()
+    
+    return (pattern.rstrip(), text.rstrip())
     # after input type choice
     # read two lines 
     # first line is pattern 
