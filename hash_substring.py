@@ -7,7 +7,6 @@ def read_input():
     if "I" in choice:
         pattern = input()
         text = input()
-        return pattern, text
     else:
         folder = "tests/06"
         with open(folder, "r") as files:
