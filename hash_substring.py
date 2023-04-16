@@ -28,21 +28,19 @@ def print_occurrences(output):
 
 def get_occurrences(pattern, text):
     # this function should find the occurances using Rabin Karp alghoritm
-    pt_len = len(pattern)
-    txt_len = len(text)
-    pt_hash = hash(pattern)
-    txt_hash = hash(text[:pt_len])
-
+    some = 0
+    thing = 0
     occurances = []
+    p_len = len(pattern)
+    t_len = len(text)
+    p_hash = (pattern)
 
-    for i in range(txt_len - pt_len + 1):
-        if pt_hash == txt_hash and text[i:i+pt_len] == pattern:
+    for i in range(t_len - p_len + 1):
+        thing = hash(text[i:i+p_len])
+        if some == thing:
             occurances.append(i)
-        if i < txt_len - pt_len:
-            txt_hash = hash(textp[i+1:i+pt_len+1])
     return occurances
-
-    
+      
 # this part launches the functions
 if __name__ == '__main__':
     print_occurrences(get_occurrences(*read_input()))
