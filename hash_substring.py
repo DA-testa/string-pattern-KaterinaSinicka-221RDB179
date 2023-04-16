@@ -25,19 +25,20 @@ def print_occurrences(output):
     # this function should control output, it doesn't need any return
     print(' '.join(map(str, output)))
 
-def hash_func(s):
-    h = 0
-    for c in s:
-        h = (h*256 + ord(c)) % 101
-    return h
-
 def get_occurrences(pattern, text):
     # this function should find the occurances using Rabin Karp alghoritm
     p_len = len(pattern)
     t_len = len(text)
-    p_hash = hash_func(pattern)
-    t_hashes = [hash_func(text[i:i+p_len]) for i in range(t_len-p_len+1)]
-    occurances = [i for i in range(t_len-p_len+1) if t_hashes[i] == p_hash]
+    p_hash = sum(ord(pattern[i]) * pow(256, p_len - i - 1) for i in range(p_len))
+    t_hash = sum(ord(text[i]) * pow(256, p_len - i - 1) for i in range(p_len))
+
+    for i in range(t_len - p_len + 1):
+        if p_hash == t_hash:
+            if text[i:i+p_len] == pattern:
+                occurances.append(i)
+        if i < t_len - p_len:
+            t_hash = (t_hash - ord(text[i]) * pow(256, p_len - 1)) * 256 + ord(text[i+p_len])
+
     return occurances
 
 # this part launches the functions
