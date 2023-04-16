@@ -5,8 +5,8 @@ def read_input():
     # as before, use capital i (input from keyboard) and capital f (input from file) to choose which input type will follow
     choice = input()
     if "I" in choice:
-        pattern = input().rstrip()
-        text = input().rstrip()
+        pattern = input()
+        text = input()
         return pattern, text
     else:
         folder = "tests/06"
@@ -40,7 +40,7 @@ def get_occurrences(pattern, text):
         if some == thing:
             occurances.append(i)
     return occurances
-      
+
 # this part launches the functions
 if __name__ == '__main__':
     print_occurrences(get_occurrences(*read_input()))
