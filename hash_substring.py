@@ -14,13 +14,13 @@ def read_input():
             pattern = file.readline().rstrip()
             text = file.readline().rstrip()
             return pattern, text
+    return (input().rstrip(), input().rstrip())
     # after input type choice
     # read two lines 
     # first line is pattern 
     # second line is text in which to look for pattern 
     # return both lines in one return
     # this is the sample return, notice the rstrip function
-     return (input().rstrip(), input().rstrip())
 
 def print_occurrences(output):
     # this function should control output, it doesn't need any return
@@ -28,21 +28,20 @@ def print_occurrences(output):
 
 def get_occurrences(pattern, text):
     # this function should find the occurances using Rabin Karp alghoritm
-    p = len(pattern)
-    t = len(text)
-    occurances = []
-    # Calculate
-    hash_pattern = sum(ord(pattern[i]) * (31**i) for i in range(p)) 
-    hash_text = sum(ord(text[i]) * (31**i) for i in range(p))
+    pt_len = len(pattern)
+    txt_len = len(text)
+    pt_hash = hash(pattern)
+    txt_hash = hash(text[:pt_len])
 
-    for i in range(t - p + 1):
-        if hash_pattern == hash_text:
-            if text[i:i+p] == pattern:
-                occurances.append(i)
-        if i < t - p:
-            hash_text = 31 * (hash_text - ord(text[i]) * (31 ** (p-1))) + ord(text[i+p])
-    # and return an iterable variable
+    occurances = []
+
+    for i in range(txt_len - pt_len + 1):
+        if pt_hash == txt_hash and text[i:i+pt_len] == pattern:
+            occurances.append(i)
+        if i < txt_len - pt_len:
+            txt_hash = hash(textp[i+1:i+pt_len+1])
     return occurances
+
     
 # this part launches the functions
 if __name__ == '__main__':
